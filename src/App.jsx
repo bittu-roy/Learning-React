@@ -1,14 +1,15 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header/Header.jsx";
 import CoreConcept from "./components/CoreConcept.jsx";
 import TabButton from "./components/TabButton.jsx";
+import { EXAMPLES } from "./data.js";
 
 function App() {
-  let tabContent = 'Please click a button';
+  const [selectedTopic, setSelectedTopic] = useState('components');
 
   function handleSelect(selectedButton) {
-    tabContent = selectedButton;
+    setSelectedTopic(selectedButton);
   }
   return (
     <div>
@@ -39,11 +40,20 @@ function App() {
             <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
             <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
-          {tabContent}
+          <div id="tab-content">
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>
+               {EXAMPLES[selectedTopic].code}
+              </code>
+            </pre>
+          </div>
+          {/* {selectedTopic} */}
         </section>
       </main>
     </div>
-  ); 
+  );
 }
 //function App-> 1. must start with Uppercase character
 //               2. must return renderable content
@@ -55,5 +65,12 @@ export default App;
 
 //PROPS- helps to pass data into components and use that components data.
 
+//04/04/2025
 //Bydefault, React components gets executed only once
 // If we want to execute a component multiple times, we have to tell React to do so.
+
+// Hooks
+// Rules for hooks :-
+// 1. hooks can only be called inside of Component Functions
+// 2. hooks can only be called at the top level
+//UseState Hook is used to make a component or variable dynamic.
