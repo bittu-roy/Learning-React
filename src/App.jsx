@@ -1,38 +1,15 @@
-import reactImg from "./assets/react-core-concepts.png";
+import {useState} from 'react';
 import { CORE_CONCEPTS } from "./data.js";
-
-const reactDescriptions = ['Fundamental', 'Crucial', 'Core'];
-
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-
-function Header() {
-  const description = reactDescriptions[genRandomInt(2)];
-  return (
-    <header>
-      <img src={reactImg} alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        {description} React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
-
-function CoreConcept(props) {
-  return (
-    <li>
-      <img src={props.image} alt={props.title} />
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
-    </li>
-  );
-}
+import Header from "./components/Header/Header.jsx";
+import CoreConcept from "./components/CoreConcept.jsx";
+import TabButton from "./components/TabButton.jsx";
 
 function App() {
+  let tabContent = 'Please click a button';
+
+  function handleSelect(selectedButton) {
+    tabContent = selectedButton;
+  }
   return (
     <div>
       <Header />
@@ -54,9 +31,19 @@ function App() {
             />
           </ul>
         </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
+          </menu>
+          {tabContent}
+        </section>
       </main>
     </div>
-  ); v
+  ); 
 }
 //function App-> 1. must start with Uppercase character
 //               2. must return renderable content
@@ -67,3 +54,6 @@ export default App;
 //So behind the scene the build process in React transforms the code that works in a browser
 
 //PROPS- helps to pass data into components and use that components data.
+
+//Bydefault, React components gets executed only once
+// If we want to execute a component multiple times, we have to tell React to do so.
